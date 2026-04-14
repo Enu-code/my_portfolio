@@ -12,6 +12,8 @@ import styles from './Hero.module.scss'
  * Counters at the bottom right.
  */
 export default function Hero() {
+  const heroRef = useRef<HTMLDivElement>(null)
+  const titleWrapRef = useRef<HTMLDivElement>(null)
   const title1Ref = useRef<HTMLHeadingElement>(null)
   const title2Ref = useRef<HTMLHeadingElement>(null)
   const introRef = useRef<HTMLParagraphElement>(null)
@@ -66,6 +68,20 @@ export default function Hero() {
           '-=0.6'
         )
       }
+
+      // 4. Parallax scrub effect on the title wrapper
+      if (titleWrapRef.current && heroRef.current) {
+        gsap.to(titleWrapRef.current, {
+          y: -150,
+          ease: 'none',
+          scrollTrigger: {
+            trigger: heroRef.current,
+            start: 'top top',
+            end: 'bottom top',
+            scrub: true,
+          },
+        })
+      }
     }
 
     return () => {
@@ -75,11 +91,11 @@ export default function Hero() {
   }, [])
 
   return (
-    <section className={styles.hero} aria-label="Introduction">
+    <section ref={heroRef} className={styles.hero} aria-label="Introduction">
       <div className={styles.content}>
         
         {/* Main Display Headlines */}
-        <div className={styles.titleWrap}>
+        <div ref={titleWrapRef} className={styles.titleWrap}>
           <div className={styles.lineWrap}>
             <h1 ref={title1Ref} className={styles.titleTop}>
               I BUILD MODERN

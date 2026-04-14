@@ -16,10 +16,11 @@
 .text {
   position: relative;
   display: inline-block;
-  transition: opacity $dur-micro ease;
+  transition: opacity $dur-micro ease, letter-spacing 0.3s ease;
 
   .link:hover & {
     opacity: 0.7;
+    letter-spacing: 2px;
   }
 }
 

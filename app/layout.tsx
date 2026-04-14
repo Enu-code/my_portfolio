@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import { Bebas_Neue, Inter } from 'next/font/google'
 import ClientLayout from '@/components/ClientLayout/ClientLayout'
+import SmoothScroll from '@/components/SmoothScroll/SmoothScroll'
 import Footer from '@/components/Footer/Footer'
 import '@/styles/globals.scss'
 
@@ -75,16 +76,18 @@ export default function RootLayout({
           <p>Please use a wider screen to view this site.</p>
         </div>
 
-        {/* Interactive global shell: Navbar + Menu + Sidebar */}
-        <ClientLayout />
+        <SmoothScroll>
+          {/* Interactive global shell: Navbar + Menu + Sidebar */}
+          <ClientLayout />
 
-        {/* Page content — route pages render here via template.tsx */}
-        <main id="main-content">
-          {children}
-        </main>
+          {/* Page content — route pages render here via template.tsx */}
+          <main id="main-content">
+            {children}
+          </main>
 
-        {/* Footer — Server Component */}
-        <Footer />
+          {/* Footer — Server Component */}
+          <Footer />
+        </SmoothScroll>
       </body>
     </html>
   )
