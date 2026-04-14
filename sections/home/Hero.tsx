@@ -21,23 +21,10 @@ export default function Hero() {
 
 
   // GSAP reveal on mount
-  useEffect(() => {
-    // Only animate after preloader is done (indicated by .loaded on body)
-    // For simplicity locally, we add a short delay.
-    // robust way: wait for document.body.classList.contains('loaded')
-    
-    const checkLoaded = setInterval(() => {
-      if (document.body.classList.contains('loaded')) {
-        clearInterval(checkLoaded)
-        playAnimation()
-      }
-    }, 100)
-
-    // Fallback if preloader disabled
-    const fallbackTimeout = setTimeout(() => {
-      clearInterval(checkLoaded)
+    // Direct reveal after a short delay to allow preloader to start its thing
+    const revealTimer = setTimeout(() => {
       playAnimation()
-    }, 2000)
+    }, 700)
 
     function playAnimation() {
       // Create a timeline
@@ -86,8 +73,7 @@ export default function Hero() {
     }
 
     return () => {
-      clearInterval(checkLoaded)
-      clearTimeout(fallbackTimeout)
+      clearTimeout(revealTimer)
     }
   }, [])
   return (

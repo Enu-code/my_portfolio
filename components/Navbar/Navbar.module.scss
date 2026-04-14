@@ -9,7 +9,7 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  pointer-events: none; // ensure the space between logo/menu is clickable
+  pointer-events: none;
 
   @media (max-width: $bp-mobile) {
     top: 20px;
@@ -48,9 +48,18 @@
   padding: 12px 24px;
   cursor: pointer;
   overflow: hidden;
-  transition: transform 0.2s ease;
+  
+  // Base transition for movement and shadow
+  transition: 
+    transform 0.5s cubic-bezier(0.19, 1, 0.22, 1),
+    box-shadow 0.5s cubic-bezier(0.19, 1, 0.22, 1);
 
-  // Background fill effect
+  &:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.05);
+  }
+
+  // Layer 2: Background fill effect
   &::before {
     content: "";
     position: absolute;
@@ -58,19 +67,18 @@
     background: $bg-dark; // black
     transform: scaleX(0);
     transform-origin: left;
-    transition: transform 0.45s cubic-bezier(0.77, 0, 0.175, 1);
+    transition: transform 0.5s cubic-bezier(0.8, 0, 0.2, 1);
+    transition-delay: 0.1s; // wait for dot to start spreading
     z-index: 1;
   }
 
   &:hover::before {
     transform: scaleX(1);
-    transform-origin: right; // shift origin to create a fluid exit feel possibly? user said left, i will follow.
+    transform-origin: right; 
   }
-  
-  // Custom: if menu is open, we can toggle state, but user didn't specify. 
-  // I will keep it simple per current request.
 }
 
+// Layer 3: Text transition
 .menuBtnText {
   position: relative;
   z-index: 2;
@@ -79,13 +87,17 @@
   text-transform: uppercase;
   letter-spacing: $ls-nav;
   color: $text-primary;
-  transition: color 0.3s ease;
+  
+  // Delayed smooth transition
+  transition: color 0.4s ease;
+  transition-delay: 0.15s;
 
   .menuBtn:hover & {
     color: #FFF;
   }
 }
 
+// Layer 1: The Dot "Spreading" 
 .dot {
   position: relative;
   z-index: 2;
@@ -93,12 +105,18 @@
   height: 8px;
   background: $bg-dark; // black
   border-radius: 50%;
-  transition: all 0.4s cubic-bezier(0.19, 1, 0.22, 1);
+  
+  // Instant response on hover, smooth duration
+  transition: 
+    transform 0.5s cubic-bezier(0.19, 1, 0.22, 1),
+    border-radius 0.5s cubic-bezier(0.19, 1, 0.22, 1),
+    background 0.3s ease,
+    opacity 0.4s ease;
 
   .menuBtn:hover & {
-    transform: scale(6);
-    border-radius: 20px;
-    opacity: 0.15;
-    background: #FFF; // makes more sense against black fill
+    transform: scale(8); // expanded spreading feel
+    border-radius: 30%; // morphing rounded-square look
+    opacity: 0.08;
+    background: #FFF;
   }
 }

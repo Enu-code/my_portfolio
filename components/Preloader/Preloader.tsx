@@ -1,74 +1,80 @@
 'use client'
 
-import { useEffect, useRef } from 'react'
-import { gsap } from '@/lib/gsap'
+import { useEffect, useState } from 'react'
 import styles from './Preloader.module.scss'
 
 /**
- * Preloader — Full viewport white overlay.
- * GSAP counts 0 → 100 with progress bar fill.
- * At 100: short pause → fade out → adds 'loaded' to <body> → scroll unlocked.
+ * Preloader — Hardened implementation.
+ * Uses simple JS interval and React state to ensure it ALWAYS unmounts.
+ * Does not depend on external animation libraries for the core "unlock" logic.
  */
 export default function Preloader() {
-  const overlayRef = useRef<HTMLDivElement>(null)
-  const counterRef = useRef<HTMLSpanElement>(null)
-  const progressRef = useRef<HTMLDivElement>(null)
+  const [progress, setProgress] = useState(0)
+  const [isFading, setIsFading] = useState(false)
+  const [isRemoved, setIsRemoved] = useState(false)
 
   useEffect(() => {
-    const overlay = overlayRef.current
-    const counter = counterRef.current
-    const progress = progressRef.current
-    if (!overlay || !counter || !progress) return
+    // 1. Lock scroll on mount
+    document.body.style.overflow = 'hidden'
 
-    // Initial state
-    gsap.set(progress, { scaleX: 0, transformOrigin: 'left center' })
-
-    const obj = { val: 0 }
-
-    const ctx = gsap.context(() => {
-      gsap.to(obj, {
-        val: 100,
-        duration: 1.4,
-        ease: 'power2.inOut',
-        onUpdate: () => {
-          const rounded = Math.round(obj.val)
-          counter.innerText = String(rounded)
-          gsap.set(progress, { scaleX: rounded / 100 })
-        },
-        onComplete: () => {
-          // Short pause then fade out
-          gsap.to(overlay, {
-            opacity: 0,
-            y: -12,
-            duration: 0.55,
-            delay: 0.25,
-            ease: 'power3.in',
-            onComplete: () => {
-              document.body.classList.add('loaded')
-              overlay.style.display = 'none'
-            },
-          })
-        },
+    // 2. Fast counter for progress
+    const timer = setInterval(() => {
+      setProgress((prev) => {
+        if (prev >= 100) {
+          clearInterval(timer)
+          return 100
+        }
+        return prev + 2 // Faster for better UX
       })
-    }, overlayRef)
+    }, 20)
 
-    return () => ctx.revert()
-  }, [])
+    // 3. Safety net: force reveal after 3 seconds regardless of progress
+    const safetyTimeout = setTimeout(() => {
+      handleComplete()
+    }, 3000)
+
+    function handleComplete() {
+      setIsFading(true)
+      // Allow time for CSS transition
+      setTimeout(() => {
+        setIsRemoved(true)
+        document.body.classList.add('loaded')
+        document.body.style.overflow = ''
+      }, 800)
+    }
+
+    if (progress === 100) {
+      handleComplete()
+    }
+
+    return () => {
+      clearInterval(timer)
+      clearTimeout(safetyTimeout)
+    }
+  }, [progress])
+
+  if (isRemoved) return null
 
   return (
-    <div ref={overlayRef} className={styles.overlay} aria-hidden="true">
-      {/* ER Logo */}
+    <div 
+      className={`
+        ${styles.overlay} 
+        ${isFading ? styles.faded : ''}
+      `} 
+      aria-hidden="true"
+    >
       <span className={styles.logo}>ER</span>
 
-      {/* Counter */}
       <div className={styles.counterWrap}>
-        <span ref={counterRef} className={styles.count}>0</span>
+        <span className={styles.count}>{progress}</span>
         <span className={styles.percent}>%</span>
       </div>
 
-      {/* Progress bar */}
       <div className={styles.progressTrack}>
-        <div ref={progressRef} className={styles.progressFill} />
+        <div 
+          className={styles.progressFill} 
+          style={{ transform: `scaleX(${progress / 100})` }}
+        />
       </div>
     </div>
   )

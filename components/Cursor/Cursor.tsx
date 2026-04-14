@@ -5,17 +5,18 @@ import { gsap } from '@/lib/gsap'
 import styles from './Cursor.module.scss'
 
 /**
- * Custom cursor — small dot that follows the mouse.
- * Scales 1×→2× on hover over links and buttons.
+ * Custom cursor — dot + trailing outer ring.
+ * Scales and glows when hovering over interactive elements.
  * Entirely disabled on touch devices and mobile (< 768px).
  */
 export default function Cursor() {
   const cursorRef = useRef<HTMLDivElement>(null)
   const [visible, setVisible] = useState(false)
-  const [isTouchDevice, setIsTouchDevice] = useState(true) // default hidden
+  const [isTouchDevice, setIsTouchDevice] = useState(true)
+  const [isHovering, setIsHovering] = useState(false)
 
   useEffect(() => {
-    // Detect touch device — don't render cursor on touch
+    // 1. Detect touch device
     const isTouch =
       'ontouchstart' in window ||
       navigator.maxTouchPoints > 0 ||
@@ -27,45 +28,47 @@ export default function Cursor() {
     const cursor = cursorRef.current
     if (!cursor) return
 
+    // 2. Setup highly optimized movement with gsap.quickTo
+    const xTo = gsap.quickTo(cursor, 'x', { duration: 0.4, ease: 'power3' })
+    const yTo = gsap.quickTo(cursor, 'y', { duration: 0.4, ease: 'power3' })
+
     // Hide native cursor
     document.documentElement.classList.add('has-custom-cursor')
 
     const moveCursor = (e: MouseEvent) => {
       if (!visible) setVisible(true)
-      gsap.to(cursor, {
-        x: e.clientX,
-        y: e.clientY,
-        duration: 0.15,
-        ease: 'power2.out',
-      })
+      xTo(e.clientX)
+      yTo(e.clientY)
     }
 
-    const scaleUp = (e: MouseEvent) => {
+    const handleMouseOver = (e: MouseEvent) => {
       const target = e.target as Element
-      if (target.closest('a, button, [data-cursor-hover]')) {
-        gsap.to(cursor, { scale: 2, duration: 0.2, ease: 'power2.out' })
+      const isInteractive = target.closest('a, button, [data-cursor-hover], .magnetic')
+      if (isInteractive) {
+        setIsHovering(true)
       }
     }
 
-    const scaleDown = (e: MouseEvent) => {
+    const handleMouseOut = (e: MouseEvent) => {
       const target = e.target as Element
-      if (target.closest('a, button, [data-cursor-hover]')) {
-        gsap.to(cursor, { scale: 1, duration: 0.2, ease: 'power2.out' })
+      const isInteractive = target.closest('a, button, [data-cursor-hover], .magnetic')
+      if (isInteractive) {
+        setIsHovering(false)
       }
     }
 
     const hideCursor = () => setVisible(false)
 
     window.addEventListener('mousemove', moveCursor)
-    document.addEventListener('mouseover', scaleUp)
-    document.addEventListener('mouseout', scaleDown)
+    document.addEventListener('mouseover', handleMouseOver)
+    document.addEventListener('mouseout', handleMouseOut)
     document.addEventListener('mouseleave', hideCursor)
 
     return () => {
       document.documentElement.classList.remove('has-custom-cursor')
       window.removeEventListener('mousemove', moveCursor)
-      document.removeEventListener('mouseover', scaleUp)
-      document.removeEventListener('mouseout', scaleDown)
+      document.removeEventListener('mouseover', handleMouseOver)
+      document.removeEventListener('mouseout', handleMouseOut)
       document.removeEventListener('mouseleave', hideCursor)
     }
   }, [visible])
@@ -75,7 +78,11 @@ export default function Cursor() {
   return (
     <div
       ref={cursorRef}
-      className={`${styles.cursor} ${visible ? styles.visible : ''}`}
+      className={`
+        ${styles.cursor} 
+        ${visible ? styles.visible : ''} 
+        ${isHovering ? styles.cursorScale : ''}
+      `}
       aria-hidden="true"
     />
   )
