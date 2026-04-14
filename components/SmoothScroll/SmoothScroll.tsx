@@ -11,10 +11,7 @@ export default function SmoothScroll({ children }: { children: React.ReactNode }
       easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
       orientation: 'vertical',
       gestureOrientation: 'vertical',
-      smoothWheel: true,
-      wheelMultiplier: 1,
-      smoothTouch: false,
-      touchMultiplier: 2,
+      lerp: 0.1,
     })
 
     let rafId: number
