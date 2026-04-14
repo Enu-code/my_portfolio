@@ -15,6 +15,38 @@
   flex-direction: column;
   // Use space-between to push strip to top, title to center, and intro to bottom
   justify-content: space-between;
+  position: relative;
+  z-index: 2;
+}
+
+.heroBg {
+  position: absolute;
+  top: 10%;
+  left: -5%;
+  width: 110%;
+  height: 100%;
+  z-index: 1;
+  pointer-events: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.bgInner {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  will-change: transform;
+
+  span {
+    font-family: $font-display;
+    font-size: clamp(300px, 40vw, 800px);
+    color: $bg-alt;
+    opacity: 0.4;
+    user-select: none;
+    line-height: 1;
+  }
 }
 
 // ─── Stats Strip (Now at TOP) ────────────────────────────
@@ -70,6 +102,12 @@
   padding-block: 4rem;
 }
 
+.titleInner {
+  display: flex;
+  flex-direction: column;
+  will-change: transform;
+}
+
 .lineWrap {
   overflow: hidden;
   padding-bottom: 0.1em;
@@ -85,8 +123,34 @@
   margin: 0;
   text-transform: uppercase;
   white-space: nowrap;
-  will-change: transform, opacity;
-  opacity: 0; // handled by GSAP
+  will-change: transform;
+  opacity: 1; // Masked by .lineWrap overflow
+}
+
+.letterFloat {
+  display: inline-block;
+  animation: floatIdle 6s ease-in-out infinite;
+  animation-play-state: paused; // Waits for reveal sequence
+  
+  :global(.hero-revealed) & {
+    animation-play-state: running;
+  }
+  
+  // Staggering the B and T from the first W
+  &:nth-of-type(2) {
+    animation-duration: 7s;
+    animation-delay: 1.2s;
+  }
+  
+  &:nth-of-type(3) {
+    animation-duration: 8s;
+    animation-delay: 2.5s;
+  }
+}
+
+@keyframes floatIdle {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
 }
 
 .titleBottom {
