@@ -3,7 +3,6 @@
 import { useState, useEffect } from 'react'
 import Navbar from '@/components/Navbar/Navbar'
 import Menu from '@/components/Menu/Menu'
-import Sidebar from '@/components/Sidebar/Sidebar'
 import Preloader from '@/components/Preloader/Preloader'
 import Cursor from '@/components/Cursor/Cursor'
 
@@ -55,8 +54,6 @@ export default function ClientLayout() {
         isOpen={menuOpen}
         onClose={() => setMenuOpen(false)}
       />
-
-      <Sidebar />
     </>
   )
 }

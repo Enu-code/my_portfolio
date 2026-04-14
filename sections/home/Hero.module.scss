@@ -2,36 +2,50 @@
 
 .hero {
   min-height: 100vh;
-  padding-top: 20vh; // push content down below navbar
+  padding-top: 15vh; // push content down below the floating header
   padding-inline: $pad-x;
   display: flex;
   flex-direction: column;
   position: relative;
-  
-  // Right side padding allocated for the persistent Sidebar (260px expanded, 48px collapsed)
-  // Since it's fixed, we just pad the main container globally via layout, but we can ensure
-  // nothing runs under the 48px tab strip at max width
-  padding-right: calc(#{$pad-x} + 48px);
 }
 
 .content {
   flex: 1;
   display: flex;
   flex-direction: column;
+  // Use space-between to push strip to top, title to center, and intro to bottom
   justify-content: space-between;
 }
 
-// ─── Intro ───────────────────────────────────────────────
+// ─── Stats Strip (Now at TOP) ────────────────────────────
+.statsStrip {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  padding-top: 2rem;
+  padding-bottom: 3rem;
+  border-bottom: 1px solid $border-light; // discrete divider line
+  
+  @media (max-width: $bp-tablet) {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 2rem;
+  }
+}
+
+// ─── Intro (Now at BOTTOM) ───────────────────────────────
 .introWrap {
-  max-width: 500px;
+  max-width: 600px;
   margin-block: 4rem;
-  align-self: flex-end; // push to the right side under the title
+  align-self: flex-end; // push to the right side
+  padding-bottom: 4rem;
 }
 
 .introText {
   font-family: $font-body;
-  font-size: clamp(16px, 1.5vw, 20px);
-  line-height: $lh-body;
+  font-size: clamp(16px, 1.2vw, 18px);
+  line-height: 1.6;
   color: $text-primary;
   opacity: 0; // JS sets
   will-change: transform, opacity;
@@ -40,51 +54,43 @@
 .ctaWrap {
   margin-top: 2rem;
   opacity: 0;
-  animation: fadeIn 1s ease forwards;
-  animation-delay: 1.5s; // fallback, usually JS would handle
+  animation: fadeIn 0.8s ease forwards;
+  animation-delay: 1.2s;
 }
 
 @keyframes fadeIn {
   to { opacity: 1; }
 }
 
-// ─── Title ───────────────────────────────────────────────
+// ─── Title (CENTERED) ────────────────────────────────────
 .titleWrap {
   display: flex;
   flex-direction: column;
-  margin-block: auto; // Center vertically in remaining space
+  margin-block: auto; 
+  padding-block: 4rem;
 }
 
-// Hide overflow so lines can slide up from clipping mask
 .lineWrap {
   overflow: hidden;
-  padding-bottom: 0.2em; // allow breathing room for descenders/border
-  margin-bottom: -0.2em;
+  padding-bottom: 0.1em;
 }
 
 .titleTop,
 .titleBottom {
   font-family: $font-display;
-  font-size: clamp(100px, 15vw, 250px);
+  font-size: clamp(80px, 14vw, 220px);
   line-height: 0.85;
-  letter-spacing: -0.02em;
+  letter-spacing: -0.025em;
   color: $text-primary;
   margin: 0;
   text-transform: uppercase;
+  white-space: nowrap;
   will-change: transform, opacity;
   opacity: 0; // handled by GSAP
 }
 
-// ─── Stats Strip ─────────────────────────────────────────
-.statsStrip {
-  display: flex;
-  gap: 6rem;
-  margin-top: 4rem;
-  padding-block: 3rem;
-  border-top: 1px solid $border-light;
-  flex-wrap: wrap;
-
-  @media (max-width: $bp-tablet) {
-    gap: 3rem;
-  }
+.titleBottom {
+  // Use a slight indent or right alignment as see in reference
+  align-self: flex-end;
+  color: $text-primary;
 }

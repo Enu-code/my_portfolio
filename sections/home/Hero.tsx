@@ -13,11 +13,12 @@ import styles from './Hero.module.scss'
  */
 export default function Hero() {
   const heroRef = useRef<HTMLDivElement>(null)
+  const statsRef = useRef<HTMLDivElement>(null)
   const titleWrapRef = useRef<HTMLDivElement>(null)
   const title1Ref = useRef<HTMLHeadingElement>(null)
   const title2Ref = useRef<HTMLHeadingElement>(null)
   const introRef = useRef<HTMLParagraphElement>(null)
-  const statsRef = useRef<HTMLDivElement>(null)
+
 
   // GSAP reveal on mount
   useEffect(() => {
@@ -89,44 +90,43 @@ export default function Hero() {
       clearTimeout(fallbackTimeout)
     }
   }, [])
-
   return (
     <section ref={heroRef} className={styles.hero} aria-label="Introduction">
       <div className={styles.content}>
         
-        {/* Main Display Headlines */}
+        {/* 1. Stats counter strip at the TOP horizontal strip */}
+        <div ref={statsRef} className={styles.statsStrip}>
+          <Counter target={50} suffix="+" label="Projects Completed" />
+          <Counter target={3} suffix="+" label="Years of Experience" />
+          <Counter target={98.3} suffix="/100" label="Average Performance Score" />
+        </div>
+
+        {/* 2. Main Display Headlines */}
         <div ref={titleWrapRef} className={styles.titleWrap}>
           <div className={styles.lineWrap}>
             <h1 ref={title1Ref} className={styles.titleTop}>
-              I BUILD MODERN
+              I BUILD MODERN WEBSITES
             </h1>
           </div>
           <div className={styles.lineWrap}>
             <h1 ref={title2Ref} className={styles.titleBottom}>
-              WEB EXPERIENCES
+              THAT WORK
             </h1>
           </div>
         </div>
 
-        {/* Intro text — Bottom area */}
+        {/* 3. Intro text — Bottom area */}
         <div className={styles.introWrap}>
           <p ref={introRef} className={styles.introText}>
-            Delivering high-performance digital<br />
-            experiences with a focus on<br />
-            editorial design & rigorous engineering.
+            I'm a web developer focused on building modern, fast, and<br />
+            reliable websites. I care not only about how a site looks, but<br />
+            also about how it performs, scales, and feels for real users.
           </p>
           <div className={styles.ctaWrap}>
-            <ArrowLink text="Explore Projects" href="#recent-work" />
+            <ArrowLink text="Learn more" href="/about" />
           </div>
         </div>
 
-      </div>
-
-      {/* Stats counter strip at bottom */}
-      <div ref={statsRef} className={styles.statsStrip}>
-        <Counter target={3} suffix="+" label="Years Experience" />
-        <Counter target={15} suffix="+" label="Projects Shipped" />
-        <Counter target={2} label="Live Startups" />
       </div>
     </section>
   )

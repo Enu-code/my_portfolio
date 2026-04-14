@@ -13,14 +13,14 @@ export default function Navbar({ onMenuOpen, menuOpen }: NavbarProps) {
   return (
     <header className={styles.navbar} role="banner">
       {/* 1. Logo mark (Magnetic) */}
-      <Magnetic strength={0.15}>
+      <Magnetic strength={0.35}>
         <Link href="/" className={styles.logo} aria-label="Eshaan Roy — Home">
           ER
         </Link>
       </Magnetic>
 
       {/* 2. Menu trigger (Magnetic) */}
-      <Magnetic strength={0.2}>
+      <Magnetic strength={0.4}>
         <button
           className={`${styles.menuBtn} ${menuOpen ? styles.menuOpen : ''}`}
           onClick={onMenuOpen}
