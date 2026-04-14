@@ -1,7 +1,7 @@
 'use client'
 
 import Link from 'next/link'
-import { useEffect, useState } from 'react'
+import Magnetic from '@/components/Magnetic/Magnetic'
 import styles from './Navbar.module.scss'
 
 interface NavbarProps {
@@ -10,38 +10,28 @@ interface NavbarProps {
 }
 
 export default function Navbar({ onMenuOpen, menuOpen }: NavbarProps) {
-  const [scrolled, setScrolled] = useState(false)
-
-  useEffect(() => {
-    const handleScroll = () => setScrolled(window.scrollY > 20)
-    window.addEventListener('scroll', handleScroll, { passive: true })
-    return () => window.removeEventListener('scroll', handleScroll)
-  }, [])
-
   return (
-    <header
-      className={`${styles.navbar} ${scrolled ? styles.scrolled : ''} ${menuOpen ? styles.menuActive : ''}`}
-      role="banner"
-    >
-      {/* Logo mark */}
-      <Link href="/" className={styles.logo} aria-label="Eshaan Roy — Home">
-        ER
-      </Link>
+    <header className={styles.navbar} role="banner">
+      {/* 1. Logo mark (Magnetic) */}
+      <Magnetic strength={0.15}>
+        <Link href="/" className={styles.logo} aria-label="Eshaan Roy — Home">
+          ER
+        </Link>
+      </Magnetic>
 
-      {/* Menu trigger */}
-      <button
-        className={styles.menuBtn}
-        onClick={onMenuOpen}
-        aria-label="Open navigation menu"
-        aria-expanded={menuOpen}
-        aria-controls="fullscreen-menu"
-      >
-        <span className={styles.menuBtnText}>Menu</span>
-        <span className={styles.menuBtnLines} aria-hidden="true">
-          <span />
-          <span />
-        </span>
-      </button>
+      {/* 2. Menu trigger (Magnetic) */}
+      <Magnetic strength={0.2}>
+        <button
+          className={`${styles.menuBtn} ${menuOpen ? styles.menuOpen : ''}`}
+          onClick={onMenuOpen}
+          aria-label="Open navigation menu"
+          aria-expanded={menuOpen}
+          aria-controls="fullscreen-menu"
+        >
+          <span className={styles.menuBtnText}>Menu</span>
+          <div className={styles.dot} aria-hidden="true" />
+        </button>
+      </Magnetic>
     </header>
   )
 }

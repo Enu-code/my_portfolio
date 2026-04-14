@@ -1,89 +1,104 @@
-@use 'variables' as *;
+@use '@/styles/variables' as *;
 
 .navbar {
   position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
+  top: 24px;
+  left: 32px;
+  right: 32px;
   z-index: $z-navbar;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 1.5rem $pad-x;
-  background: transparent;
-  transition:
-    background 0.3s ease,
-    border-color 0.3s ease,
-    backdrop-filter 0.3s ease;
-  border-bottom: 1px solid transparent;
+  pointer-events: none; // ensure the space between logo/menu is clickable
 
-  &.scrolled {
-    background: rgba(255, 255, 255, 0.88);
-    backdrop-filter: blur(8px);
-    -webkit-backdrop-filter: blur(8px);
-    border-bottom-color: $border-light;
-  }
-
-  // When fullscreen menu is open — hide the navbar border
-  &.menuActive {
-    border-bottom-color: transparent;
-    background: transparent;
-    backdrop-filter: none;
+  @media (max-width: $bp-mobile) {
+    top: 20px;
+    left: 20px;
+    right: 20px;
   }
 }
 
 // ─── Logo mark ───────────────────────────────────────────
 .logo {
+  pointer-events: auto;
   font-family: $font-display;
   font-size: 1.75rem;
   line-height: 1;
   letter-spacing: 0.04em;
   color: $text-primary;
   text-decoration: none;
-  transition: opacity 0.2s ease;
-  z-index: 1; // stays above menu overlay locally
+  transition: opacity 0.3s ease, transform 0.2s ease;
+  z-index: 1;
 
   &:hover {
-    opacity: 0.6;
+    opacity: 0.7;
   }
 }
 
 // ─── Menu button ─────────────────────────────────────────
 .menuBtn {
+  pointer-events: auto;
+  position: relative;
   display: flex;
   align-items: center;
-  gap: 0.75rem;
-  background: none;
+  gap: 12px;
+  background: #f5f5f5;
   border: none;
+  border-radius: 100px;
+  padding: 12px 24px;
   cursor: pointer;
-  padding: 0;
-  color: $text-primary;
-  transition: opacity 0.2s ease;
-  z-index: 1;
+  overflow: hidden;
+  transition: transform 0.2s ease;
 
-  &:hover {
-    opacity: 0.6;
+  // Background fill effect
+  &::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: $bg-dark; // black
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.45s cubic-bezier(0.77, 0, 0.175, 1);
+    z-index: 1;
   }
+
+  &:hover::before {
+    transform: scaleX(1);
+    transform-origin: right; // shift origin to create a fluid exit feel possibly? user said left, i will follow.
+  }
+  
+  // Custom: if menu is open, we can toggle state, but user didn't specify. 
+  // I will keep it simple per current request.
 }
 
 .menuBtnText {
+  position: relative;
+  z-index: 2;
   font-family: $font-body;
   font-size: $size-label;
   text-transform: uppercase;
   letter-spacing: $ls-nav;
+  color: $text-primary;
+  transition: color 0.3s ease;
+
+  .menuBtn:hover & {
+    color: #FFF;
+  }
 }
 
-.menuBtnLines {
-  display: flex;
-  flex-direction: column;
-  gap: 5px;
-  width: 22px;
+.dot {
+  position: relative;
+  z-index: 2;
+  width: 8px;
+  height: 8px;
+  background: $bg-dark; // black
+  border-radius: 50%;
+  transition: all 0.4s cubic-bezier(0.19, 1, 0.22, 1);
 
-  span {
-    display: block;
-    width: 100%;
-    height: 1px;
-    background: $text-primary;
-    transition: transform 0.25s ease, opacity 0.25s ease;
+  .menuBtn:hover & {
+    transform: scale(6);
+    border-radius: 20px;
+    opacity: 0.15;
+    background: #FFF; // makes more sense against black fill
   }
 }
