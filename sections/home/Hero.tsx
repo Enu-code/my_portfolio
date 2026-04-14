@@ -21,6 +21,7 @@ export default function Hero() {
 
 
   // GSAP reveal on mount
+  useEffect(() => {
     // Direct reveal after a short delay to allow preloader to start its thing
     const revealTimer = setTimeout(() => {
       playAnimation()
