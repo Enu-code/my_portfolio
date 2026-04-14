@@ -37,9 +37,9 @@ export function useScrollAnimation(
   const {
     y = 50,
     opacity = 0,
-    duration = 0.7,
+    duration = 0.8,
     ease = 'power3.out',
-    start = 'top 82%',
+    start = 'top 85%',
     delay = 0,
     stagger = 0,
   } = options

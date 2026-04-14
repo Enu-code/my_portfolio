@@ -24,7 +24,8 @@
 // ─── Intro ───────────────────────────────────────────────
 .introWrap {
   max-width: 500px;
-  margin-bottom: 4rem;
+  margin-block: 4rem;
+  align-self: flex-end; // push to the right side under the title
 }
 
 .introText {
@@ -64,7 +65,7 @@
 .titleTop,
 .titleBottom {
   font-family: $font-display;
-  font-size: clamp(60px, 12vw, 200px);
+  font-size: clamp(100px, 15vw, 250px);
   line-height: 0.85;
   letter-spacing: -0.02em;
   color: $text-primary;

@@ -33,6 +33,7 @@ export default function Counter({ target, suffix = '', label }: CounterProps) {
       gsap.to(obj, {
         val: target,
         duration: 1.6,
+        delay: 0.5,
         snap: { val: 1 },
         ease: 'power2.out',
         scrollTrigger: {

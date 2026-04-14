@@ -78,7 +78,21 @@ export default function Hero() {
     <section className={styles.hero} aria-label="Introduction">
       <div className={styles.content}>
         
-        {/* Intro text — Top left area */}
+        {/* Main Display Headlines */}
+        <div className={styles.titleWrap}>
+          <div className={styles.lineWrap}>
+            <h1 ref={title1Ref} className={styles.titleTop}>
+              I BUILD MODERN
+            </h1>
+          </div>
+          <div className={styles.lineWrap}>
+            <h1 ref={title2Ref} className={styles.titleBottom}>
+              WEB EXPERIENCES
+            </h1>
+          </div>
+        </div>
+
+        {/* Intro text — Bottom area */}
         <div className={styles.introWrap}>
           <p ref={introRef} className={styles.introText}>
             Delivering high-performance digital<br />
@@ -87,20 +101,6 @@ export default function Hero() {
           </p>
           <div className={styles.ctaWrap}>
             <ArrowLink text="Explore Projects" href="#recent-work" />
-          </div>
-        </div>
-
-        {/* Main Display Headlines */}
-        <div className={styles.titleWrap}>
-          <div className={styles.lineWrap}>
-            <h1 ref={title1Ref} className={styles.titleTop}>
-              FRONTEND DEV. &
-            </h1>
-          </div>
-          <div className={styles.lineWrap}>
-            <h1 ref={title2Ref} className={styles.titleBottom}>
-              FULL STACK ENG.
-            </h1>
           </div>
         </div>
 
