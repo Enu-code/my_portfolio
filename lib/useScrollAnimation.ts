@@ -26,6 +26,8 @@ interface ScrollAnimationOptions {
   start?: string
   /** Delay before animation starts — default 0 */
   delay?: number
+  /** Stagger time string or number — default 0 */
+  stagger?: number
 }
 
 export function useScrollAnimation(
@@ -39,6 +41,7 @@ export function useScrollAnimation(
     ease = 'power3.out',
     start = 'top 82%',
     delay = 0,
+    stagger = 0,
   } = options
 
   useEffect(() => {
@@ -46,8 +49,11 @@ export function useScrollAnimation(
     if (!el) return
 
     const ctx = gsap.context(() => {
+      // If stagger is provided, we animate the children instead
+      const target = stagger ? Array.from(el.children) : el
+      
       gsap.fromTo(
-        el,
+        target,
         { y, opacity, willChange: 'transform' },
         {
           y: 0,
@@ -55,6 +61,7 @@ export function useScrollAnimation(
           duration,
           ease,
           delay,
+          stagger,
           scrollTrigger: {
             trigger: el,
             start,
@@ -65,5 +72,5 @@ export function useScrollAnimation(
     }, el)
 
     return () => ctx.revert()
-  }, [ref, y, opacity, duration, ease, start, delay])
+  }, [ref, y, opacity, duration, ease, start, delay, stagger])
 }
