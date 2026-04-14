@@ -17,48 +17,72 @@ export default function Magnetic({ children, strength = 0.2 }: MagneticProps) {
   const rootRef = useRef<HTMLElement>(null)
 
   useEffect(() => {
-    // Disable magnetic effect on touch devices
     const isTouch = !window.matchMedia('(pointer: fine)').matches
     if (isTouch) return
 
     const el = rootRef.current
     if (!el) return
 
-    // On mouse move, move the element towards the cursor based on strength
+    let isWithinRadius = false
+
     const handleMouseMove = (e: MouseEvent) => {
       const { clientX, clientY } = e
-      const { left, top, width, height } = el.getBoundingClientRect()
+      const rect = el.getBoundingClientRect()
       
-      const centerX = left + width / 2
-      const centerY = top + height / 2
+      const centerX = rect.left + rect.width / 2
+      const centerY = rect.top + rect.height / 2
       
-      const x = (clientX - centerX) * strength
-      const y = (clientY - centerY) * strength
+      const distX = clientX - centerX
+      const distY = clientY - centerY
+      const distance = Math.sqrt(distX * distX + distY * distY)
+      const radius = 150
 
-      gsap.to(el, {
-        x,
-        y,
-        duration: 1,
-        ease: 'power3.out'
-      })
+      if (distance < radius) {
+        isWithinRadius = true
+        
+        // Calculate intensity based on distance (closer = stronger pull)
+        // Map 0-150 distance to 1-0 mapping
+        const proximity = (radius - distance) / radius 
+        
+        // Premium Movement: max 20px offset
+        const moveX = distX * strength * proximity
+        const moveY = distY * strength * proximity
+        
+        // Subtle Rotation: max 5 degrees based on direction
+        const rotate = (distX / radius) * 5
+        
+        gsap.to(el, {
+          x: moveX,
+          y: moveY,
+          scale: 1 + 0.05 * proximity,
+          rotate: rotate,
+          duration: 0.7,
+          ease: 'power3.out',
+          overwrite: 'auto'
+        })
+      } else if (isWithinRadius) {
+        // Just left the radius
+        isWithinRadius = false
+        resetPosition()
+      }
     }
 
-    // On mouse leave, reset the element position with a smooth snap
-    const handleMouseLeave = () => {
+    const resetPosition = () => {
       gsap.to(el, {
         x: 0,
         y: 0,
-        duration: 1,
-        ease: 'elastic.out(1, 0.3)'
+        scale: 1,
+        rotate: 0,
+        duration: 1.2,
+        ease: 'elastic.out(1, 0.4)',
+        overwrite: 'auto'
       })
     }
 
-    el.addEventListener('mousemove', handleMouseMove)
-    el.addEventListener('mouseleave', handleMouseLeave)
+    window.addEventListener('mousemove', handleMouseMove)
 
     return () => {
-      el.removeEventListener('mousemove', handleMouseMove)
-      el.removeEventListener('mouseleave', handleMouseLeave)
+      window.removeEventListener('mousemove', handleMouseMove)
     }
   }, [strength])
 
