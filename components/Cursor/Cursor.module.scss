@@ -1,0 +1,27 @@
+@use 'variables' as *;
+
+// ─── Custom cursor dot ───────────────────────────────────
+.cursor {
+  position: fixed;
+  top: 0;
+  left: 0;
+  // Offset so cursor is centered on the pointer position
+  margin-top: -5px;
+  margin-left: -5px;
+  width: 10px;
+  height: 10px;
+  // NOTE: Only element where border-radius is permitted —
+  // a cursor dot must be circular by design.
+  border-radius: 50%;
+  background: $text-primary;
+  pointer-events: none;
+  z-index: $z-cursor;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  will-change: transform;
+  mix-blend-mode: difference;
+}
+
+.visible {
+  opacity: 1;
+}

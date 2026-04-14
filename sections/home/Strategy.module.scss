@@ -1,0 +1,82 @@
+@use '@/styles/variables' as *;
+
+.strategySection {
+  padding-block: 8rem;
+  background: $bg-light;
+  border-top: 1px solid $border-light;
+}
+
+.inner {
+  max-width: $max-width;
+  margin-inline: auto;
+  padding-inline: $pad-x;
+  padding-right: calc(#{$pad-x} + 48px); // account for right sidebar tab
+}
+
+.header {
+  max-width: 800px;
+  margin-bottom: 5rem;
+}
+
+.eyebrow {
+  font-family: $font-body;
+  font-size: $size-label;
+  text-transform: uppercase;
+  letter-spacing: $ls-label;
+  color: $text-muted;
+  margin-bottom: 2rem;
+}
+
+.headline {
+  font-family: $font-display;
+  font-size: clamp(32px, 5vw, 64px);
+  line-height: 1;
+  letter-spacing: -0.01em;
+  color: $text-primary;
+}
+
+// ─── Grid ────────────────────────────────────────────────
+.grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2rem;
+
+  @media (max-width: $bp-tablet) {
+    grid-template-columns: 1fr;
+    gap: 3rem;
+  }
+}
+
+// ─── Card ────────────────────────────────────────────────
+.card {
+  display: flex;
+  flex-direction: column;
+  border-top: 1px solid $text-primary;
+  padding-top: 1.5rem;
+  // Note: the GSAP hook animates the children inside the grid via .card
+}
+
+.cardHeader {
+  margin-bottom: 3rem;
+}
+
+.num {
+  font-family: $font-body;
+  font-size: $size-label;
+  color: $text-muted;
+}
+
+.cardTitle {
+  font-family: $font-display;
+  font-size: clamp(24px, 2vw, 32px);
+  letter-spacing: $ls-nav;
+  color: $text-primary;
+  margin-bottom: 1rem;
+}
+
+.cardDesc {
+  font-family: $font-body;
+  font-size: $size-body;
+  line-height: $lh-body;
+  color: $text-primary;
+}

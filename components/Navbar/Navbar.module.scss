@@ -1,0 +1,89 @@
+@use 'variables' as *;
+
+.navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: $z-navbar;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1.5rem $pad-x;
+  background: transparent;
+  transition:
+    background 0.3s ease,
+    border-color 0.3s ease,
+    backdrop-filter 0.3s ease;
+  border-bottom: 1px solid transparent;
+
+  &.scrolled {
+    background: rgba(255, 255, 255, 0.88);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    border-bottom-color: $border-light;
+  }
+
+  // When fullscreen menu is open — hide the navbar border
+  &.menuActive {
+    border-bottom-color: transparent;
+    background: transparent;
+    backdrop-filter: none;
+  }
+}
+
+// ─── Logo mark ───────────────────────────────────────────
+.logo {
+  font-family: $font-display;
+  font-size: 1.75rem;
+  line-height: 1;
+  letter-spacing: 0.04em;
+  color: $text-primary;
+  text-decoration: none;
+  transition: opacity 0.2s ease;
+  z-index: 1; // stays above menu overlay locally
+
+  &:hover {
+    opacity: 0.6;
+  }
+}
+
+// ─── Menu button ─────────────────────────────────────────
+.menuBtn {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  color: $text-primary;
+  transition: opacity 0.2s ease;
+  z-index: 1;
+
+  &:hover {
+    opacity: 0.6;
+  }
+}
+
+.menuBtnText {
+  font-family: $font-body;
+  font-size: $size-label;
+  text-transform: uppercase;
+  letter-spacing: $ls-nav;
+}
+
+.menuBtnLines {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  width: 22px;
+
+  span {
+    display: block;
+    width: 100%;
+    height: 1px;
+    background: $text-primary;
+    transition: transform 0.25s ease, opacity 0.25s ease;
+  }
+}

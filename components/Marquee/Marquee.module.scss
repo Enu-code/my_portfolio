@@ -1,0 +1,17 @@
+@use 'variables' as *;
+
+.wrapper {
+  overflow: hidden;
+  width: 100%;
+}
+
+.track {
+  display: flex;
+  white-space: nowrap;
+  will-change: transform;
+
+  span {
+    display: inline-block;
+    flex-shrink: 0;
+  }
+}

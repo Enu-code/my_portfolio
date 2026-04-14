@@ -1,0 +1,23 @@
+@use 'variables' as *;
+
+.counter {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.number {
+  font-family: $font-display;
+  font-size: clamp(64px, 10vw, 120px);
+  line-height: 0.9;
+  letter-spacing: -0.02em;
+  color: $text-primary;
+}
+
+.label {
+  font-family: $font-body;
+  font-size: $size-label;
+  text-transform: uppercase;
+  letter-spacing: $ls-label;
+  color: $text-muted;
+}

@@ -1,0 +1,69 @@
+@use 'variables' as *;
+
+.overlay {
+  position: fixed;
+  inset: 0;
+  z-index: $z-preloader;
+  background: $bg-light;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2rem;
+  will-change: transform, opacity;
+}
+
+// ER logo — top area
+.logo {
+  position: absolute;
+  top: 1.75rem;
+  left: $pad-x;
+  font-family: $font-display;
+  font-size: 1.75rem;
+  line-height: 1;
+  letter-spacing: 0.04em;
+  color: $text-primary;
+}
+
+// Large percentage counter
+.counterWrap {
+  display: flex;
+  align-items: flex-start;
+  line-height: 1;
+}
+
+.count {
+  font-family: $font-display;
+  font-size: clamp(100px, 18vw, 220px);
+  line-height: 0.85;
+  letter-spacing: -0.02em;
+  color: $text-primary;
+}
+
+.percent {
+  font-family: $font-display;
+  font-size: clamp(40px, 6vw, 80px);
+  line-height: 1;
+  color: $text-muted;
+  margin-top: 0.5rem;
+}
+
+// Progress bar — bottom edge
+.progressTrack {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: $border-light;
+  overflow: hidden;
+}
+
+.progressFill {
+  width: 100%;
+  height: 100%;
+  background: $text-primary;
+  transform: scaleX(0);
+  transform-origin: left center;
+  will-change: transform;
+}

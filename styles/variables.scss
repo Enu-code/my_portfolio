@@ -1,0 +1,70 @@
+// ─────────────────────────────────────────
+// COLOUR TOKENS
+// ─────────────────────────────────────────
+$bg-light:        #FFFFFF;
+$bg-alt:          #F9F9F9;
+$bg-dark:         #0A0A0A;
+$bg-dark-alt:     #111111;
+$text-primary:    #1A1A1A;
+$text-dark:       #F0F0F0;
+$text-muted:      #888888;
+$border-light:    #E0E0E0;
+$border-dark:     #2A2A2A;
+$accent-green:    #3B6D11;
+$menu-overlay:    rgba(10, 10, 10, 0.97);
+
+// ─────────────────────────────────────────
+// TYPOGRAPHY
+// ─────────────────────────────────────────
+$font-display:    var(--font-bebas-neue), 'Bebas Neue', sans-serif;
+$font-body:       var(--font-inter), 'Inter', sans-serif;
+
+$size-hero:       clamp(72px, 11vw, 130px);
+$size-section:    clamp(40px, 6vw, 72px);
+$size-body:       15px;
+$size-label:      11px;
+
+$lh-hero:         0.9;
+$lh-body:         1.65;
+$ls-hero:         -0.01em;
+$ls-label:        0.12em;
+$ls-nav:          0.1em;
+
+// ─────────────────────────────────────────
+// SPACING & LAYOUT
+// ─────────────────────────────────────────
+$max-width:       1280px;
+$pad-x:           clamp(1.5rem, 5vw, 5rem);
+$section-pad-y:   clamp(6rem, 10vw, 10rem);
+
+// ─────────────────────────────────────────
+// BORDERS
+// ─────────────────────────────────────────
+$border-width:    1px;
+$border-radius:   0px; // EDITORIAL — NO ROUNDING
+
+// ─────────────────────────────────────────
+// Z-INDEX STACK
+// ─────────────────────────────────────────
+$z-cursor:        9998;
+$z-preloader:     9999;
+$z-menu:          200;
+$z-sidebar:       150;
+$z-navbar:        100;
+
+// ─────────────────────────────────────────
+// ANIMATION TIMING
+// ─────────────────────────────────────────
+$dur-micro:       0.25s;
+$dur-reveal:      0.7s;
+$dur-hero:        1.2s;
+$ease-out:        cubic-bezier(0.215, 0.61, 0.355, 1); // power3.out equivalent
+$ease-in-out:     cubic-bezier(0.77, 0, 0.175, 1);     // power4.inOut equivalent
+
+// ─────────────────────────────────────────
+// BREAKPOINTS
+// ─────────────────────────────────────────
+$bp-mobile:       768px;
+$bp-tablet:       1024px;
+$bp-desktop:      1280px;
+$bp-min:          320px;

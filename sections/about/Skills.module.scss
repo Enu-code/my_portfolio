@@ -1,0 +1,63 @@
+@use '@/styles/variables' as *;
+
+.skillsSection {
+  padding-block: 6rem 8rem;
+  background: $bg-light;
+  border-top: 1px solid $border-light;
+}
+
+.inner {
+  max-width: $max-width;
+  margin-inline: auto;
+  padding-inline: $pad-x;
+  padding-right: calc(#{$pad-x} + 48px);
+}
+
+.eyebrow {
+  font-family: $font-body;
+  font-size: $size-label;
+  text-transform: uppercase;
+  letter-spacing: $ls-label;
+  color: $text-muted;
+  margin-bottom: 4rem;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 4rem;
+
+  @media (max-width: $bp-tablet) {
+    grid-template-columns: 1fr;
+    gap: 3rem;
+  }
+}
+
+.column {
+  display: flex;
+  flex-direction: column;
+}
+
+.colTitle {
+  font-family: $font-display;
+  font-size: clamp(24px, 3vw, 32px);
+  color: $text-primary;
+  margin-bottom: 2rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid $text-primary;
+}
+
+.list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.listItem {
+  font-family: $font-body;
+  font-size: $size-body;
+  color: $text-primary;
+}

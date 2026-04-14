@@ -1,0 +1,11 @@
+@use 'variables' as *;
+
+.clock {
+  font-family: $font-body;
+  font-size: $size-label;
+  text-transform: uppercase;
+  letter-spacing: $ls-label;
+  color: $text-muted;
+  font-variant-numeric: tabular-nums; // Prevent layout shift as digits change
+  line-height: 1.5;
+}

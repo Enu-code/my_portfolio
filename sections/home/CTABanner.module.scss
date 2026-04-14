@@ -1,0 +1,40 @@
+@use '@/styles/variables' as *;
+
+.ctaSection {
+  padding-block: 10rem 6rem;
+  background: $bg-light;
+  border-top: 1px solid $border-light;
+  text-align: center;
+}
+
+.inner {
+  max-width: $max-width;
+  margin-inline: auto;
+  padding-inline: $pad-x;
+  padding-right: calc(#{$pad-x} + 48px);
+}
+
+.heading {
+  font-family: $font-display;
+  font-size: clamp(60px, 10vw, 160px);
+  line-height: 0.85;
+  letter-spacing: -0.02em;
+  color: $text-primary;
+  margin-bottom: 4rem;
+}
+
+.ctaWrap {
+  display: flex;
+  justify-content: center;
+}
+
+// Make the ArrowLink significantly larger for this banner
+.largeLink {
+  transform: scale(2);
+  transform-origin: center center;
+  transition: opacity 0.2s ease;
+  
+  &:hover {
+    opacity: 0.6;
+  }
+}

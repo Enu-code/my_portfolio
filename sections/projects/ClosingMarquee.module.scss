@@ -1,0 +1,31 @@
+@use '@/styles/variables' as *;
+
+.closingSection {
+  padding-block: 8rem;
+  background: $bg-light;
+  overflow: hidden;
+  border-top: 1px solid $border-light;
+}
+
+.linkWrap {
+  display: block;
+  text-decoration: none;
+  cursor: pointer;
+  transition: opacity 0.3s ease;
+
+  &:hover {
+    // Standard editorial opacity dip
+    opacity: 0.6;
+  }
+}
+
+.hugeMarquee {
+  font-family: $font-display;
+  font-size: clamp(80px, 18vw, 260px);
+  line-height: 0.85;
+  letter-spacing: -0.02em;
+  color: $text-primary;
+  
+  // Need to ensure the GSAP track ignores standard padding
+  // so the text runs truly edge-to-edge
+}

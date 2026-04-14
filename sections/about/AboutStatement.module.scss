@@ -1,0 +1,44 @@
+@use '@/styles/variables' as *;
+
+.statementSection {
+  padding-block: 8rem;
+  background: $bg-light;
+}
+
+.inner {
+  max-width: $max-width;
+  margin-inline: auto;
+  padding-inline: $pad-x;
+  padding-right: calc(#{$pad-x} + 48px);
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: 300px 1fr;
+  gap: 4rem;
+
+  @media (max-width: $bp-tablet) {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+}
+
+.eyebrow {
+  font-family: $font-body;
+  font-size: $size-label;
+  text-transform: uppercase;
+  letter-spacing: $ls-label;
+  color: $text-muted;
+}
+
+.statement {
+  font-family: $font-body;
+  font-size: clamp(24px, 3vw, 40px);
+  line-height: 1.4;
+  color: $text-primary;
+  margin-bottom: 2rem;
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+}

@@ -1,0 +1,123 @@
+@use '@/styles/variables' as *;
+
+.projectRow {
+  position: relative; // crucial so the absolute preview stays bounded/measurable
+  border-bottom: 1px solid $border-light;
+  padding-block: 2.5rem;
+  
+  // Transition background on hover for visceral feedback
+  transition: background 0.3s ease;
+  cursor: pointer;
+
+  &:hover {
+    background: #F9F9F9; // very subtle highlight
+  }
+}
+
+.grid {
+  max-width: $max-width;
+  margin-inline: auto;
+  padding-inline: $pad-x;
+  padding-right: calc(#{$pad-x} + 48px);
+  
+  display: grid;
+  // 4 columns: Title, Tags, Year, CTA Link
+  grid-template-columns: 2fr 1.5fr 1fr auto;
+  align-items: center;
+  gap: 2rem;
+
+  @media (max-width: $bp-tablet) {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+    align-items: flex-start;
+  }
+}
+
+// ─── Columns ─────────────────────────────────────────────
+.colName {
+  display: flex;
+  align-items: center;
+}
+
+.title {
+  font-family: $font-display;
+  font-size: clamp(32px, 5vw, 64px);
+  line-height: 0.9;
+  letter-spacing: -0.01em;
+  color: $text-primary;
+  margin: 0;
+}
+
+.colRoles {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.tag {
+  font-family: $font-body;
+  font-size: $size-label;
+  text-transform: uppercase;
+  letter-spacing: $ls-label;
+  color: $text-muted;
+}
+
+.colYear {
+  text-align: left;
+}
+
+.colLink {
+  // Uses ArrowLink component which handles its own typography
+  // Align right in grid
+  text-align: right;
+  
+  @media (max-width: $bp-tablet) {
+    text-align: left;
+    margin-top: 1rem;
+  }
+}
+
+// ─── Floating Preview Image ──────────────────────────────
+.previewWrap {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 350px;
+  aspect-ratio: 4/3;
+  pointer-events: none; // prevent cursor interception flickering
+  z-index: 50; // sit above text locally
+  opacity: 0; // JS toggles to 1
+  transform: scale(0.8);
+  will-change: transform, opacity;
+  border: 1px solid $border-light;
+  overflow: hidden;
+
+  // On mobile touch devices, don't show the hover preview
+  @media (hover: none) and (pointer: coarse) {
+    display: none;
+  }
+}
+
+.image {
+  object-fit: cover;
+  width: 100%;
+  height: 100%;
+  // Apply a subtle greyscale filter until hovered directly over the row
+  filter: grayscale(100%);
+  transition: filter 0.4s ease;
+
+  .projectRow:hover & {
+    filter: grayscale(0%);
+  }
+}
+
+.blankFallback {
+  width: 100%;
+  height: 100%;
+  background: #E5E5E5;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: $text-muted;
+  font-family: $font-body;
+}

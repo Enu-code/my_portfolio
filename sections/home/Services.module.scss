@@ -1,0 +1,71 @@
+@use '@/styles/variables' as *;
+
+.servicesSection {
+  padding-block: 8rem;
+  background: $bg-light;
+}
+
+.inner {
+  max-width: $max-width;
+  margin-inline: auto;
+  padding-inline: $pad-x;
+  padding-right: calc(#{$pad-x} + 48px);
+}
+
+.header {
+  margin-bottom: 4rem;
+  padding-bottom: 2rem;
+  border-bottom: 1px solid $border-light;
+}
+
+.eyebrow {
+  font-family: $font-body;
+  font-size: $size-label;
+  text-transform: uppercase;
+  letter-spacing: $ls-label;
+  color: $text-muted;
+}
+
+// ─── Lists Wrap ──────────────────────────────────────────
+.listsWrap {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4rem;
+
+  @media (max-width: $bp-mobile) {
+    grid-template-columns: 1fr;
+  }
+}
+
+.column {
+  display: flex;
+  flex-direction: column;
+}
+
+.colTitle {
+  font-family: $font-display;
+  font-size: clamp(32px, 4vw, 48px);
+  color: $text-primary;
+  margin-bottom: 2rem;
+}
+
+.list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.listItem {
+  font-family: $font-body;
+  font-size: clamp(20px, 2vw, 24px);
+  color: $text-primary;
+  padding-bottom: 1.25rem;
+  border-bottom: 1px solid $border-light;
+
+  &:last-child {
+    border-bottom: none;
+  }
+}

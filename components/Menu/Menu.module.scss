@@ -1,0 +1,198 @@
+@use 'variables' as *;
+
+// ─── Overlay ─────────────────────────────────────────────
+.overlay {
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+  background: $menu-overlay;
+  z-index: $z-menu;
+  display: flex;
+  flex-direction: column;
+  padding: 1.5rem $pad-x;
+  overflow: hidden;
+  // Initial state handled by GSAP on mount
+  clip-path: inset(0 0 100% 0);
+  pointer-events: none;
+  will-change: clip-path;
+}
+
+// ─── Top bar ─────────────────────────────────────────────
+.topBar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-bottom: 2rem;
+  border-bottom: 1px solid $border-dark;
+  flex-shrink: 0;
+}
+
+.overlayLogo {
+  font-family: $font-display;
+  font-size: 1.75rem;
+  line-height: 1;
+  letter-spacing: 0.04em;
+  color: $text-dark;
+}
+
+.closeBtn {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: $text-dark;
+  transition: opacity 0.2s ease;
+
+  &:hover {
+    opacity: 0.6;
+  }
+}
+
+.closeBtnText {
+  font-family: $font-body;
+  font-size: $size-label;
+  text-transform: uppercase;
+  letter-spacing: $ls-nav;
+}
+
+.closeX {
+  font-size: 1rem;
+  line-height: 1;
+}
+
+// ─── Nav links ───────────────────────────────────────────
+.nav {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 0;
+  padding-block: 2rem;
+}
+
+.navItem {
+  display: block;
+  padding: 1.25rem 0;
+  border-bottom: 1px solid $border-dark;
+  text-decoration: none;
+  color: $text-dark;
+  overflow: hidden;
+  will-change: transform;
+  transition: opacity 0.2s ease;
+
+  &:first-child {
+    border-top: 1px solid $border-dark;
+  }
+
+  &:hover {
+    opacity: 0.7;
+
+    .marqueeInner {
+      animation-play-state: running;
+    }
+  }
+}
+
+.navNumber {
+  font-family: $font-body;
+  font-size: $size-label;
+  text-transform: uppercase;
+  letter-spacing: $ls-label;
+  color: $text-muted;
+  display: block;
+  margin-bottom: 0.25rem;
+}
+
+.navLabel {
+  display: block;
+  font-family: $font-display;
+  font-size: clamp(56px, 9vw, 110px);
+  line-height: 0.9;
+  letter-spacing: $ls-hero;
+  color: $text-dark;
+}
+
+// ─── Marquee subtitle ────────────────────────────────────
+.marqueeWrapper {
+  display: block;
+  overflow: hidden;
+  margin-top: 0.5rem;
+  height: 1.4em;
+}
+
+.marqueeInner {
+  display: inline-block;
+  white-space: nowrap;
+  font-family: $font-body;
+  font-size: $size-label;
+  text-transform: uppercase;
+  letter-spacing: $ls-label;
+  color: $text-muted;
+  // Always animating slowly — paused until hover activates
+  animation: marqueeScroll 18s linear infinite;
+  animation-play-state: paused;
+
+  .navItem:hover & {
+    animation-play-state: running;
+  }
+}
+
+@keyframes marqueeScroll {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+
+// ─── Bottom strip ────────────────────────────────────────
+.bottomStrip {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.75rem 1.5rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid $border-dark;
+  flex-shrink: 0;
+  will-change: transform;
+}
+
+.bottomEmail,
+.bottomLocation {
+  font-family: $font-body;
+  font-size: $size-label;
+  text-transform: uppercase;
+  letter-spacing: $ls-label;
+  color: $text-muted;
+  text-decoration: none;
+  transition: color 0.2s ease;
+
+  &:hover {
+    color: $text-dark;
+  }
+}
+
+.bottomSep {
+  color: $border-dark;
+  font-size: $size-label;
+}
+
+.bottomSocials {
+  display: flex;
+  gap: 1.5rem;
+  margin-left: auto;
+
+  a {
+    font-family: $font-body;
+    font-size: $size-label;
+    text-transform: uppercase;
+    letter-spacing: $ls-label;
+    color: $text-muted;
+    text-decoration: none;
+    transition: color 0.2s ease;
+
+    &:hover {
+      color: $text-dark;
+    }
+  }
+}

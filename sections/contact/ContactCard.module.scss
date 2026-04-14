@@ -1,0 +1,186 @@
+@use '@/styles/variables' as *;
+
+.contactSection {
+  min-height: 100vh;
+  padding-top: 20vh;
+  padding-bottom: 8rem;
+  background: $bg-light;
+  display: flex;
+  align-items: center;
+}
+
+.inner {
+  max-width: $max-width;
+  width: 100%;
+  margin-inline: auto;
+  padding-inline: $pad-x;
+  padding-right: calc(#{$pad-x} + 48px);
+}
+
+.card {
+  width: 100%;
+  border: 1px solid $text-primary;
+  background: #FFF;
+  // No border-radius or shadow applied per design rules
+}
+
+// ─── Status Bar ──────────────────────────────────────────
+.statusBar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.5rem 2rem;
+  border-bottom: 1px solid $border-light;
+
+  @media (max-width: $bp-mobile) {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+    padding: 1.5rem;
+  }
+}
+
+.statusIndicator {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.pulseDot {
+  width: 8px;
+  height: 8px;
+  background: #00D859; // neon green status
+  border-radius: 50%; // one of the only acceptable uses of border-radius
+  animation: pulse 2s infinite cubic-bezier(0.4, 0, 0.6, 1);
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.4; transform: scale(0.85); }
+}
+
+.statusText,
+.cardClock {
+  font-family: $font-body;
+  font-size: $size-label;
+  text-transform: uppercase;
+  letter-spacing: $ls-label;
+  color: $text-primary;
+}
+
+// ─── Card Body ───────────────────────────────────────────
+.cardBody {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  
+  @media (max-width: $bp-tablet) {
+    grid-template-columns: 1fr;
+  }
+}
+
+.infoCol {
+  padding: 4rem 3rem;
+  border-right: 1px solid $border-light;
+
+  @media (max-width: $bp-tablet) {
+    border-right: none;
+    border-bottom: 1px solid $border-light;
+    padding: 2.5rem 1.5rem;
+  }
+}
+
+.socialCol {
+  padding: 4rem 3rem;
+
+  @media (max-width: $bp-tablet) {
+    padding: 2.5rem 1.5rem;
+  }
+}
+
+// ─── Info Column ─────────────────────────────────────────
+.identity {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  margin-bottom: 5rem;
+}
+
+.avatarWrap {
+  width: 60px;
+  height: 60px;
+  background: $border-light;
+  overflow: hidden;
+  // Sharp square corners as usual
+}
+
+.avatarBlank {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: $font-body;
+  font-size: $size-label;
+  color: $text-muted;
+}
+
+.name {
+  font-family: $font-display;
+  font-size: clamp(28px, 3vw, 40px);
+  line-height: 1;
+  color: $text-primary;
+  margin-bottom: 0.25rem;
+}
+
+.title {
+  font-family: $font-body;
+  font-size: $size-label;
+  color: $text-muted;
+}
+
+.ctaHeading {
+  font-family: $font-display;
+  font-size: clamp(40px, 6vw, 80px);
+  line-height: 0.9;
+  letter-spacing: -0.01em;
+  color: $text-primary;
+  margin-bottom: 2rem;
+}
+
+.primaryEmail {
+  display: inline-block;
+  font-family: $font-body;
+  font-size: clamp(20px, 2vw, 24px);
+  color: $text-primary;
+  text-decoration: none;
+  border-bottom: 1px solid $text-primary;
+  padding-bottom: 0.25rem;
+  transition: opacity 0.3s ease;
+
+  &:hover {
+    opacity: 0.6;
+  }
+}
+
+// ─── Social Column ───────────────────────────────────────
+.socialEyebrow {
+  font-family: $font-body;
+  font-size: $size-label;
+  text-transform: uppercase;
+  letter-spacing: $ls-label;
+  color: $text-muted;
+  margin-bottom: 2rem;
+}
+
+.socialList {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+
+  li {
+    display: flex;
+  }
+}

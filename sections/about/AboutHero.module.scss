@@ -1,0 +1,55 @@
+@use '@/styles/variables' as *;
+
+.hero {
+  padding-top: 15vh;
+  padding-bottom: 6rem;
+  background: $bg-light;
+}
+
+.inner {
+  max-width: $max-width;
+  margin-inline: auto;
+  padding-inline: $pad-x;
+  padding-right: calc(#{$pad-x} + 48px);
+}
+
+.header {
+  margin-bottom: 4rem;
+}
+
+.title {
+  font-family: $font-display;
+  font-size: clamp(60px, 10vw, 150px);
+  line-height: 0.85;
+  letter-spacing: -0.02em;
+  color: $text-primary;
+  text-transform: uppercase;
+}
+
+.mediaWrap {
+  width: 100%;
+  aspect-ratio: 21 / 9;
+  background: $border-light;
+  overflow: hidden;
+
+  @media (max-width: $bp-tablet) {
+    aspect-ratio: 16 / 9;
+  }
+}
+
+.videoPlaceholder {
+  width: 100%;
+  height: 100%;
+  background: #E5E5E5; // light gray for the abstract visual
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.placeholderText {
+  font-family: $font-body;
+  font-size: $size-label;
+  text-transform: uppercase;
+  letter-spacing: $ls-label;
+  color: $text-muted;
+}

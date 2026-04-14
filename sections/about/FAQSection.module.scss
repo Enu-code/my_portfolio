@@ -1,0 +1,29 @@
+@use '@/styles/variables' as *;
+
+.faqSection {
+  padding-block: 8rem 12rem;
+  background: $bg-light;
+}
+
+.inner {
+  max-width: $max-width;
+  margin-inline: auto;
+  padding-inline: $pad-x;
+  padding-right: calc(#{$pad-x} + 48px);
+}
+
+.eyebrow {
+  font-family: $font-body;
+  font-size: $size-label;
+  text-transform: uppercase;
+  letter-spacing: $ls-label;
+  color: $text-muted;
+  margin-bottom: 4rem;
+  border-bottom: 1px solid $border-light;
+  padding-bottom: 2rem;
+}
+
+.listWrap {
+  // Add a top border so the first FAQ item has a boundary above it
+  border-top: 1px solid $text-primary;
+}

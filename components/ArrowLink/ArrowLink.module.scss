@@ -1,0 +1,62 @@
+@use 'variables' as *;
+
+.link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-family: $font-body;
+  font-size: $size-label;
+  text-transform: uppercase;
+  letter-spacing: $ls-label;
+  color: $text-primary;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.text {
+  position: relative;
+  display: inline-block;
+  transition: opacity $dur-micro ease;
+
+  .link:hover & {
+    opacity: 0.7;
+  }
+}
+
+// ─── Arrow container ─────────────────────────────────────
+.arrows {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  width: 18px;
+  height: 10px;
+  overflow: hidden;
+}
+
+// Arrow 1 — visible by default, exits on hover
+.arrow1 {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  transition: transform $dur-micro ease, opacity $dur-micro ease;
+
+  .link:hover & {
+    transform: translateX(20px);
+    opacity: 0;
+  }
+}
+
+// Arrow 2 — hidden by default, enters on hover
+.arrow2 {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  transform: translateX(-10px);
+  opacity: 0;
+  transition: transform $dur-micro ease, opacity $dur-micro ease;
+
+  .link:hover & {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}

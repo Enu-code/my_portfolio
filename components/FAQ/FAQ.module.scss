@@ -1,0 +1,76 @@
+@use 'variables' as *;
+
+.faq {
+  border-bottom: 1px solid $border-light;
+}
+
+.questionBtn {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  text-align: left;
+  padding: 2rem 0;
+  transition: opacity 0.2s ease;
+
+  &:hover {
+    // Opacity change on hover, as per editorial style
+    opacity: 0.7;
+  }
+}
+
+.question {
+  font-family: $font-display;
+  font-size: clamp(24px, 3vw, 40px);
+  color: $text-primary;
+  letter-spacing: $ls-hero; // -0.01em
+}
+
+// Plus Icon wrapper
+.iconWrap {
+  position: relative;
+  width: 20px;
+  height: 20px;
+  flex-shrink: 0;
+  transition: transform 0.4s $ease-out;
+  
+  &.open {
+    // Rotate to become an 'X'
+    transform: rotate(45deg);
+  }
+}
+
+.iconLineHoriz,
+.iconLineVert {
+  position: absolute;
+  background-color: $text-primary;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.iconLineHoriz {
+  width: 100%;
+  height: 2px;
+}
+
+.iconLineVert {
+  width: 2px;
+  height: 100%;
+}
+
+.answerWrap {
+  overflow: hidden;
+}
+
+.answerInner {
+  padding-bottom: 2rem;
+  padding-right: 2rem;
+}
+
+.answer {
+  font-family: $font-body;
+  font-size: $size-body;
+  line-height: $lh-body;
+  color: $text-primary;
+}
